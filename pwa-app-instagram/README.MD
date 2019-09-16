@@ -16,3 +16,26 @@ Finally, run `npm start` to start the development server and visit [localhost:80
 ##### What can you do in service workers then?
 - Since they run in the background, they are really good at one thing, reacting to events. They can listen to some events, either emitted by your normal javascripts pages or also by your HTML code or by another server, like web push notifications.
 - SW are all about reacting to events, they sit there in the background and they do nothing but they can react to all kinds of incoming events and then do something, like for example return a cached asset or show a notification to the user and you will see all these things throughout the course. So that are service workders, background processes attached to entire application than of a single page and all about events.
+
+#### "Listenable" Events (in Service Worker)
+- FETCH: Browser or Page-related JavaScript initiates a Fetch (Http request)
+- PUSH NOTIFICATIONS: Service worker receives Web Push Notification (from server)
+- NOTIFICATION INTERACTION: User interacts with displayed Notification.
+- BACKGROUND SYNC: Service Worker receives Background Sync Event (e.g. Internet Connection was restored)
+- SERVICE WORKDER LIFECYCLE: Service Worker Phase changes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
