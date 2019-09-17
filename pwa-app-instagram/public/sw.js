@@ -1,4 +1,3 @@
-import { CANCELLED } from "dns";
 
 self.addEventListener('install', function(event) {
 	console.log('[Service Worker] Installing Service Worker ...', event);
@@ -20,7 +19,11 @@ self.addEventListener('activate', function(event) {
 // activated. The reason for this is that the page is maybe still communicating with the old service worker and activating a new one which might introduce
 // breaking changes, might break the running page. Therefore the way to activate a new version is to close the existing tab and reopen it so that you have
 
-
+self.addEventListener('fetch', function(event) {
+	console.log('[Service Worker] Fetching something ...', event);
+	// event.respondWith(null);
+	event.respondWith(fetch(event.request));
+});
 
 
 
