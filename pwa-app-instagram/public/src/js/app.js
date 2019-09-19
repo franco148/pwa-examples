@@ -35,6 +35,7 @@ fetch('https://httpbin.org/post', {
 		'Content-Type': 'application/json',
 		'Accept': 'application/json'
 	},
+	mode: 'cors', // cors is the default one - no-cors
 	body: JSON.stringify({ message: 'Does this work?' })
 })
 .then(function(response) {
