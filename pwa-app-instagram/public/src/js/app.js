@@ -1,5 +1,9 @@
 var deferredPrompt;
 
+if (!window.serviceWorker) {
+	window.Promise = Promise;
+}
+
 if ('serviceWorker' in navigator) {
 	navigator.serviceWorker
 					//  .register('/sw.js', { scope: '/help' })
@@ -27,6 +31,23 @@ fetch('https://httpbin.org/ip')
 .catch(function(err) {
 	console.log(err);
 });
+
+// SAME AS PREVIOUS CODE BUT WITH AJAX
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://httpbin.org/ip');
+xhr.responseType = 'json';
+
+xhr.onload = function() {
+	console.log(xhr.response);
+}
+
+xhr.onerror = function() {
+	console.log('Error!');
+}
+
+xhr.send();
+
+// -----------------------------------
 
 
 fetch('https://httpbin.org/post', {
