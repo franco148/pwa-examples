@@ -72,5 +72,33 @@ fetch('https://httpbin.org/post', {
 
 
 
-
+// Exercise
+// button.addEventListener('click', function() {
+//   // Create a new Promise here and use setTimeout inside the function you pass to the constructor
+//   var promise = new Promise(function(resolve, reject) {
+//     setTimeout(function() { // <- Store this INSIDE the Promise you created!
+//       // Resolve the following URL: https://swapi.co/api/people/1
+//       resolve('https://httpbin.org/puts');
+//     }, 3000);
+//   })
+//     .then(function(url) {
+//       return fetch(url, {
+//         method: 'PUT',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Accept': 'application/json'
+//         },
+//         body: JSON.stringify({person: {name: 'Max', age: 28}})
+//       });
+//     })
+//     .then(function(response) {
+//       return response.json();
+//     })
+//     .then(function(data) {
+//       output.textContent = data.json.person.name;
+//     })
+//     .catch(function(err) {
+//       console.log(err);
+//     });
+//-------------
 
