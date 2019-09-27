@@ -25,7 +25,9 @@ Finally, run `npm start` to start the development server and visit [localhost:80
 - SERVICE WORKDER LIFECYCLE: Service Worker Phase changes
 
 
-
+#### Why Caching?
+ **Why support Offline Access?**
+ Because we need to make our applications available even when there is no internet conection. With service workers we can pre-cache or in general cache certain file, assets, your web app might need and therefore can still display this page and even allow navigation whilst your application is offline, super useful in such circunstances.
 
 
 
