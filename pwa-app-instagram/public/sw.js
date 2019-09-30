@@ -1,6 +1,19 @@
 
 self.addEventListener('install', function(event) {
 	console.log('[Service Worker] Installing Service Worker ...', event);
+
+	// When we talk about cache API, we can simply have a look on the APPLICATION
+	// tab in developer tools. 
+	// We have only one per given page, per given domain even, there we can open
+	// multiple sub-caches. And this is what we can do with open() method 
+	// caches.open();
+	event.waitUntil(
+		caches.open('static')
+			  .then(function(cache) {
+				  console.log('[Service Worker] Precaching App Shell');
+				  cache.add('/src/js/app.js');
+			  })
+	);
 });
 
 self.addEventListener('activate', function(event) {
