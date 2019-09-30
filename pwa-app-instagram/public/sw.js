@@ -10,8 +10,14 @@ self.addEventListener('install', function(event) {
 	event.waitUntil(
 		caches.open('static')
 			  .then(function(cache) {
-				  console.log('[Service Worker] Precaching App Shell');
-				  cache.add('/src/js/app.js');
+          console.log('[Service Worker] Precaching App Shell');
+          // Something to take into account, even with those 2 files cached, it will not work.
+          // You have to store the exact requests you are about to make, keep in mind we are
+          // storing request, reponse key-value pairs. Load server/ is not the same like server/index.html
+          // So we also need to cache the / request.
+          cache.add('/');
+          cache.add('/index.html');
+          cache.add('/src/js/app.js');
 			  })
 	);
 });
