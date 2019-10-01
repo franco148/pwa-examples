@@ -15,9 +15,32 @@ self.addEventListener('install', function(event) {
           // You have to store the exact requests you are about to make, keep in mind we are
           // storing request, reponse key-value pairs. Load server/ is not the same like server/index.html
           // So we also need to cache the / request.
-          cache.add('/');
-          cache.add('/index.html');
-          cache.add('/src/js/app.js');
+          // cache.add('/');
+          // cache.add('/index.html');
+          // cache.add('/src/js/app.js');
+
+
+          // promise and fetch: Does it make sense to store these polyfills in our cache?
+          // In my opinion it does not, because we use these polyfills for older browsers. Now these browsers won't
+          // support service workers anyways, so there is no value in storing these files in the cache. If we store
+          // them there, we only load them for browsers which do not need them, so we can also remove them from there.
+          // Now from a performance perspective, storing them in the cache might still be worth it because even modern
+          // browsers have to load these files because we simply import them in the HTML file.
+          cache.addAll([
+            '/',
+            '/index.html',
+            '/src/js/app.js',
+            '/src/js/feed.js',
+            '/src/js/promise.js',
+            '/src/js/fetch.js',
+            '/src/js/material.min.js',
+            '/src/css/app.css',
+            '/src/css/feed.css',
+            '/src/images/main-image.jpg',            
+            'https://fonts.googleapis.com/css?family=Roboto:400,700',
+            'https://fonts.googleapis.com/icon?family=Material+Icons',
+            'https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-pink.min.css'
+          ]);
 			  })
 	);
 });
