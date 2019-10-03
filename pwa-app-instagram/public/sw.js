@@ -7,7 +7,7 @@ self.addEventListener('install', function(event) {
     // multiple sub-caches. And this is what we can do with open() method 
     // caches.open();
     event.waitUntil(
-        caches.open('static')
+        caches.open('static-v2')
         .then(function(cache) {
             console.log('[Service Worker] Precaching App Shell');
             // Something to take into account, even with those 2 files cached, it will not work.
@@ -57,8 +57,23 @@ self.addEventListener('install', function(event) {
     );
 });
 
+
+// Here is a good place to do cleanup work because this will only be executed once the user clased all the pages,
+// all tabs and open the application in a new one. So now it is safe to update the cache because now we are not in a
+// running application anymore.
 self.addEventListener('activate', function(event) {
     console.log('[Service Worker] Activating Service Worker ...', event);
+    event.waitUntil(
+      caches.keys()
+            .then(function(keyList) {
+              return Promise.all(keyList.map(function(key) {
+                if (key !== 'static-v2' && key !== 'dynamic') {
+                  console.log('[Service Worker] Removing old cache.', key);
+                  return caches.delete(key);
+                }
+              }));
+            })
+    );
     return self.clients.claim();
 });
 
