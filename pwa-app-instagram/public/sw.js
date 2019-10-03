@@ -1,3 +1,6 @@
+var CACHE_STATIC_NAME = 'static-v3';
+var CACHE_DYNAMIC_NAME = 'dynamic-v2';
+
 self.addEventListener('install', function(event) {
     console.log('[Service Worker] Installing Service Worker ...', event);
 
@@ -7,7 +10,7 @@ self.addEventListener('install', function(event) {
     // multiple sub-caches. And this is what we can do with open() method 
     // caches.open();
     event.waitUntil(
-        caches.open('static-v2')
+        caches.open(CACHE_STATIC_NAME)
         .then(function(cache) {
             console.log('[Service Worker] Precaching App Shell');
             // Something to take into account, even with those 2 files cached, it will not work.
@@ -67,7 +70,7 @@ self.addEventListener('activate', function(event) {
       caches.keys()
             .then(function(keyList) {
               return Promise.all(keyList.map(function(key) {
-                if (key !== 'static-v2' && key !== 'dynamic') {
+                if (key !== CACHE_STATIC_NAME && key !== CACHE_DYNAMIC_NAME) {
                   console.log('[Service Worker] Removing old cache.', key);
                   return caches.delete(key);
                 }
@@ -89,7 +92,7 @@ self.addEventListener('activate', function(event) {
 // breaking changes, might break the running page. Therefore the way to activate a new version is to close the existing tab and reopen it so that you have
 
 self.addEventListener('fetch', function(event) {
-    console.log('[Service Worker] Fetching something ...', event);
+    // console.log('[Service Worker] Fetching something ...', event);
     // event.respondWith(null);
     // event.respondWith(fetch(event.request));
 
@@ -101,7 +104,7 @@ self.addEventListener('fetch', function(event) {
           } else {
             return fetch(event.request)
               .then(function(res) {
-                return caches.open('dynamic')
+                return caches.open(CACHE_DYNAMIC_NAME)
                   .then(function(cache) {
                     cache.put(event.request.url, res);
                     return res;
