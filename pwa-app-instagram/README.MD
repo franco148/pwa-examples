@@ -25,9 +25,16 @@ Finally, run `npm start` to start the development server and visit [localhost:80
 - SERVICE WORKDER LIFECYCLE: Service Worker Phase changes
 
 
+#### Why Caching?
+ **Why support Offline Access?**
+ Because we need to make our applications available even when there is no internet conection. With service workers we can pre-cache or in general cache certain file, assets, your web app might need and therefore can still display this page and even allow navigation whilst your application is offline, super useful in such circunstances.
 
+#### The Cache API
+When working with web applications, there actually are multiple possible caches to work with. The server can cache some resources but these still need to be sent over the wire, so they disqualify for offline access. The browser also manages its own cache totally without you telling it to do so, this is the cache we disabled in the first module. Now this cache managed by the browser has one big disadvantage, IT IS MANAGED BY THE BROWSER, you can not rely on it you can't explicity tell it which assets to cache and which not to cache. So we as developer have no control over it or only a very limited amount and we can not rely on these files being there when you need them, that is where the cache API steps in.
 
+A separate cache storage also living in the browser but managed by us as a developer. This cache holds simple key-value pairs where the key are the HTTP requests you want to send, so to put it in a simplified picture, simply the URL you are tyring to reach, thought it really is the complete request and the value is the response you got back. So of course you need to have made that request successfully at least one time so that you got the response you actually want to display, otherwise you can not cache it. You can not cache what is not there, but once you have got that response one time, you can store it on the key, so on that request you sent and then fetch it later on, when you need to send that same request again but have no internet connection and that simply is how the cache API works. You store key value pairs, request and response. 
 
+Now the cache API can be accessed from both service workers and your ordinary Javascript on your pages. So you can access it not only from service workers but also from your day-to-day Javascript running in your pages loaded through your HTML pages.
 
 
 
